@@ -1,6 +1,7 @@
 import { addToFavoritesHandler } from "./favorites.js";
 
 export const populateUI = (movie) => {
+    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
     const cardContainer = document.querySelector("#movie-container");
     const card = document.createElement("div");
     const filmImage = document.createElement("img");
@@ -50,30 +51,57 @@ export const populateUI = (movie) => {
         "truncate",
         "w-full"
     );
+    console.log("favorites", favorites);
+    console.log("movie id", movie.id);
+    console.log("favorite id", movie.id);
 
-    addToFavorites.textContent = "Add to Favorites";
-    addToFavorites.classList.add(
-        "px-6",
-        "py-3",
-        "bg-gradient-to-r",
-        "from-purple-500",
-        "to-purple-700",
-        "text-white",
-        "font-semibold",
-        "rounded-full",
-        "hover:from-purple-600",
-        "hover:to-purple-800",
-        "shadow-md",
-        "hover:shadow-lg",
-        "transition-all",
-        "duration-300",
-        "transform",
-        "hover:scale-105"
-    );
+    const isFavorite = favorites.find((fav) => fav.id === movie.id);
 
-    addToFavorites.addEventListener("click", () => {
-        addToFavoritesHandler(movie);
-    });
+    if (!isFavorite) {
+        addToFavorites.textContent = "Add to Favorites";
+        addToFavorites.classList.add(
+            "px-6",
+            "py-3",
+            "bg-gradient-to-r",
+            "from-purple-500",
+            "to-purple-700",
+            "text-white",
+            "font-semibold",
+            "rounded-full",
+            "hover:from-purple-600",
+            "hover:to-purple-800",
+            "shadow-md",
+            "hover:shadow-lg",
+            "transition-all",
+            "duration-300",
+            "transform",
+            "hover:scale-105"
+        );
+        addToFavorites.addEventListener("click", () => {
+            addToFavoritesHandler(movie);
+        });
+    } else {
+        addToFavorites.textContent = "Delete to Favorites";
+        addToFavorites.classList.add(
+            "px-6",
+            "py-3",
+            "bg-gradient-to-r",
+            "from-purple-500",
+            "to-purple-700",
+            "text-white",
+            "font-semibold",
+            "rounded-full",
+            "hover:from-purple-600",
+            "hover:to-purple-800",
+            "shadow-md",
+            "hover:shadow-lg",
+            "transition-all",
+            "duration-300",
+            "transform",
+            "hover:scale-105"
+        );
+        addToFavorites.disabled = true;
+    }
 
     card.appendChild(filmImage);
     card.appendChild(filmTitle);
