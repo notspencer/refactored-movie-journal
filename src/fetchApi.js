@@ -29,6 +29,7 @@ export const fetchPopularMovies = async () => {
     }
 };
 
+//fetching searchFilm
 export const searchFilm = async (film) => {
     try {
         const options = {

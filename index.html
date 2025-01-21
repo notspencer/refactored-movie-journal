@@ -10,16 +10,20 @@
         <!-- Header -->
         <header class="bg-black text-white py-4 px-12 flex items-center justify-between">
             <!-- Logo -->
-            <div class="text-xl font-semibold">Company</div>
+            <div class="text-xl font-semibold">Movie Diary</div>
 
             <!-- Search Bar -->
             <div class="relative w-3/5">
                 <input
+                    id="searchInput"
                     type="text"
                     placeholder="search movies here..."
                     class="bg-gray-800 text-gray-400 placeholder-gray-500 text-sm px-4 py-2 rounded-full w-full focus:outline-none"
                 />
-                <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                <button
+                    id="searchButton"
+                    class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         class="h-5 w-5"
@@ -74,7 +78,7 @@
                         />
                     </svg>
                     <div>
-                        <p class="text-sm font-medium">M<span class="text-indigo-500">D</span></p>
+                        <p class="text-sm font-medium">M<span class="text-purple-500">D</span></p>
                     </div>
                 </div>
 
@@ -90,7 +94,7 @@
 
                 <!-- Copyright -->
                 <div class="text-right text-sm">
-                    <p>© Company, Inc. 2024.<br />We love our users!</p>
+                    <p>© Movie Diary, Inc. 2024.<br />We love our users!</p>
                 </div>
             </div>
         </footer>

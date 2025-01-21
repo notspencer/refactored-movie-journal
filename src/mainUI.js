@@ -1,3 +1,5 @@
+import { addToFavoritesHandler } from "./favorites.js";
+
 export const populateUI = (movie) => {
     const cardContainer = document.querySelector("#movie-container");
     const card = document.createElement("div");
@@ -70,7 +72,7 @@ export const populateUI = (movie) => {
     );
 
     addToFavorites.addEventListener("click", () => {
-        // addToCart(product);
+        addToFavoritesHandler(movie);
     });
 
     card.appendChild(filmImage);
