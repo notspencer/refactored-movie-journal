@@ -1,5 +1,12 @@
 import { addToFavoritesHandler } from "./favorites.js";
 
+export const resetCardContainer = (heading) => {
+    const cardContainer = document.querySelector("#movie-container");
+    cardContainer.innerHTML = "";
+    const headingElement = document.querySelector("#movies-heading");
+    headingElement.textContent = heading;
+};
+
 export const populateUI = (movie) => {
     const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
     const cardContainer = document.querySelector("#movie-container");
@@ -51,9 +58,6 @@ export const populateUI = (movie) => {
         "truncate",
         "w-full"
     );
-    console.log("favorites", favorites);
-    console.log("movie id", movie.id);
-    console.log("favorite id", movie.id);
 
     const isFavorite = favorites.find((fav) => fav.id === movie.id);
 

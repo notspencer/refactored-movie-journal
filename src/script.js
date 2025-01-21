@@ -1,8 +1,12 @@
 import { fetchPopularMovies, searchFilm } from "./fetchApi.js";
-import { populateUI } from "./mainUI.js";
+import { populateUI, resetCardContainer } from "./mainUI.js";
+import { setupSearch } from "./searchUI.js";
 
-const searchInput = document.getElementById("searchInput");
+const searchInputElement = document.getElementById("searchInput");
 const searchButton = document.getElementById("searchButton");
+const suggestionsElement = document.getElementById("suggestions");
+
+setupSearch(searchInputElement, suggestionsElement);
 
 const getPopularMovies = async () => {
     const movies = await fetchPopularMovies();
@@ -10,42 +14,36 @@ const getPopularMovies = async () => {
     if (!movies) {
         throw new Error("Something went wrong");
     }
-    const result = movies.results;
+    const results = movies.results;
 
-    result.map((movie) => populateUI(movie));
-    // console.log(movies);
+    resetCardContainer("Popular Movies");
+    results.map((movie) => populateUI(movie));
 };
 getPopularMovies();
 
-const searchMovie = async (title) => {
+export const searchMovie = async (title) => {
     try {
-        // const title = "Venom: The Last Dance";
-        const searchAMovie = await searchFilm(title);
-        // populateUI(searchAMovie); this already works
-        console.log(searchAMovie);
+        const movies = await searchFilm(title);
+        const results = movies.results;
+        resetCardContainer(`Searchresult for "${title}"`);
+        results.map((movie) => populateUI(movie));
     } catch (e) {
         console.log(`${e} Error searching movie`);
     }
 };
-searchMovie();
 
-// Event listener for search button click
 searchButton.addEventListener("click", () => {
-    const title = searchInput.value.trim(); // Get input value
-    // console.log(title);
+    const title = searchInputElement.value.trim();
     if (title) {
-        searchMovie(title); // Trigger search
+        searchMovie(title);
     }
 });
 
-// Event listener for Enter key in the input field
-searchInput.addEventListener("keydown", (event) => {
+searchInputElement.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
-        const title = searchInput.value.trim();
-        // console.log(title);
+        const title = searchInputElement.value.trim();
         if (title) {
             searchMovie(title);
         }
     }
 });
-// console.log(searchInput, searchButton);

@@ -30,7 +30,7 @@ export const fetchPopularMovies = async () => {
 };
 
 //fetching searchFilm
-export const searchFilm = async (film) => {
+export const searchFilm = async (query) => {
     try {
         const options = {
             method: "GET",
@@ -41,7 +41,7 @@ export const searchFilm = async (film) => {
         };
         const response = await fetch(
             `${searchPath}${pathKey}&query=${encodeURIComponent(
-                film
+                query
             )}&include_adult=false&language=en-US&page=1`,
             options
         );
