@@ -15,3 +15,7 @@ export function addToFavoritesHandler(movie) {
     localStorage.setItem("favorites", JSON.stringify(favorites));
     alert(`${nameOfFilm} added to Favorites!`);
 }
+
+const getFavoriteMovies = () => {
+    return JSON.parse(localStorage.getItem("favMovies")) || [];
+};

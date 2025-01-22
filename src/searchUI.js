@@ -1,5 +1,5 @@
-import { searchFilm } from "./fetchApi.js";
-import { searchMovie } from "./script.js";
+import { searchFilm } from "./network.js";
+import { searchMovie } from "./main.js";
 
 export const setupSearch = async (inputElement, suggestionsContainer) => {
     inputElement.addEventListener("input", async function (e) {

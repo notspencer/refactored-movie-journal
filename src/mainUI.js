@@ -1,4 +1,4 @@
-import { addToFavoritesHandler } from "./favorites.js";
+import { addToFavoritesHandler } from "./storage.js";
 
 export const resetCardContainer = (heading) => {
     const cardContainer = document.querySelector("#movie-container");
