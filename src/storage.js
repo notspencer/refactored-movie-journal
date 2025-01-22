@@ -21,7 +21,6 @@ export const getFavoritesMovies = () => {
 };
 export const removeFromFavorites = (movieId) => {
     const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    const newFavList = favorites.filter((movie) => movie.id !== movieId);
+    const newFavList = favorites.filter((movie) => movie.id != movieId);
     localStorage.setItem("favorites", JSON.stringify(newFavList));
-    alert(`${nameOfFilm} removed from Favorites!`);
 };

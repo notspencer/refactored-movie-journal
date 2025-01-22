@@ -1,4 +1,5 @@
 import { addToFavoritesHandler, removeFromFavorites } from "./storage.js";
+import { removeCardFromUI } from "./journalUI.js";
 
 export function CreateGlobalMovieCard(movie, withAddBtn) {
     const card = CreateMovieCard(movie);
@@ -55,7 +56,6 @@ export function CreateGlobalMovieCard(movie, withAddBtn) {
 export const createFavoriteMovieCard = (movie) => {
     const card = CreateMovieCard(movie);
     const removeFromFavoritesBtn = document.createElement("button");
-
     removeFromFavoritesBtn.textContent = "Remove from Favorites";
     removeFromFavoritesBtn.classList.add(
         "px-6",
@@ -77,13 +77,15 @@ export const createFavoriteMovieCard = (movie) => {
     );
 
     removeFromFavoritesBtn.addEventListener("click", () => {
-        removeFromFavorites(movie);
+        removeFromFavorites(movie.id);
+        removeCardFromUI(movie.id);
     });
     card.appendChild(removeFromFavoritesBtn);
     return card;
 };
 const CreateMovieCard = (movie) => {
     const card = document.createElement("div");
+    card.setAttribute("id", movie.id);
     const filmImage = document.createElement("img");
     const filmTitle = document.createElement("h3");
 
