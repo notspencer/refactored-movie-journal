@@ -2,7 +2,15 @@ import { addToFavoritesHandler, removeFromFavorites } from "./storage.js";
 import { removeCardFromUI } from "./journalUI.js";
 
 export function CreateGlobalMovieCard(movie, withAddBtn) {
-    const card = CreateMovieCard(movie);
+    let imgSource = ``;
+    let poster_path = movie.poster_path;
+    if (poster_path === null) {
+        imgSource = `https://picsum.photos/id/1/5000/3333`;
+    } else {
+        imgSource = `https://image.tmdb.org/t/p/w500${poster_path}`;
+    }
+
+    const card = CreateMovieCard(movie, imgSource);
     const addToFavoritesBtn = document.createElement("button");
     if (withAddBtn) {
         addToFavoritesBtn.textContent = "Add to Favorites";
@@ -54,7 +62,7 @@ export function CreateGlobalMovieCard(movie, withAddBtn) {
     return card;
 }
 export const createFavoriteMovieCard = (movie) => {
-    const card = CreateMovieCard(movie);
+    const card = CreateMovieCard(movie, movie.Image);
     const removeFromFavoritesBtn = document.createElement("button");
     removeFromFavoritesBtn.textContent = "Remove from Favorites";
     removeFromFavoritesBtn.classList.add(
@@ -83,14 +91,11 @@ export const createFavoriteMovieCard = (movie) => {
     card.appendChild(removeFromFavoritesBtn);
     return card;
 };
-const CreateMovieCard = (movie) => {
+const CreateMovieCard = (movie, imgSource) => {
     const card = document.createElement("div");
     card.setAttribute("id", movie.id);
     const filmImage = document.createElement("img");
     const filmTitle = document.createElement("h3");
-
-    let poster_path = movie.poster_path;
-
     card.classList.add(
         "p-2",
         "shadow-md",
@@ -104,11 +109,7 @@ const CreateMovieCard = (movie) => {
         "flex-col"
     );
 
-    if (poster_path === null) {
-        filmImage.setAttribute("src", "https://picsum.photos/id/1/5000/3333");
-    } else {
-        filmImage.setAttribute("src", `https://image.tmdb.org/t/p/w500${poster_path}`);
-    }
+    filmImage.setAttribute("src", `${imgSource}`);
     filmImage.alt = movie.title;
     filmImage.classList.add(
         "object-fill",

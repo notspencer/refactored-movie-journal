@@ -4,11 +4,10 @@ import { cardContainer } from "./journalUI.js";
 
 const RenderFavoriteMovies = () => {
     const movies = getFavoritesMovies();
-    console.log("favorites", movies);
+    console.log("cardContainer", cardContainer);
 
-        //resetCardContainer("Popular Movies");
-        movies.map((movie) => 
-            cardContainer.appendChild(createFavoriteMovieCard(movie))
+    //resetCardContainer("Popular Movies");
+    movies.map((movie) => cardContainer.appendChild(createFavoriteMovieCard(movie)));
 };
 
 RenderFavoriteMovies();
