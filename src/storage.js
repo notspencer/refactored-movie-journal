@@ -16,6 +16,12 @@ export function addToFavoritesHandler(movie) {
     alert(`${nameOfFilm} added to Favorites!`);
 }
 
-const getFavoriteMovies = () => {
-    return JSON.parse(localStorage.getItem("favMovies")) || [];
+export const getFavoritesMovies = () => {
+    return JSON.parse(localStorage.getItem("favorites")) || [];
+};
+export const removeFromFavorites = (movieId) => {
+    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    const newFavList = favorites.filter((movie) => movie.id !== movieId);
+    localStorage.setItem("favorites", JSON.stringify(newFavList));
+    alert(`${nameOfFilm} removed from Favorites!`);
 };
