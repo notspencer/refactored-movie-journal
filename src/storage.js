@@ -8,6 +8,7 @@ export function addToFavoritesHandler(movie) {
         Name: nameOfFilm,
         Image: `https://image.tmdb.org/t/p/w500${imageOfFilm}`,
         overview: overviewOfFilm,
+        userNote: "",
     };
 
     const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
@@ -21,6 +22,12 @@ export const getFavoritesMovies = () => {
 };
 export const removeFromFavorites = (movieId) => {
     const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    const newFavList = favorites.filter((movie) => movie.id != movieId);
+    const newFavList = favorites.filter((movie) => movie.id !== movieId);
     localStorage.setItem("favorites", JSON.stringify(newFavList));
+};
+export const addUserNote = (movieId, note) => {
+    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    const currentMovie = favorites.find((movie) => movie.id === movieId);
+    currentMovie.userNote = note;
+    localStorage.setItem("favorites", JSON.stringify(favorites));
 };

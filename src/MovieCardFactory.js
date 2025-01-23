@@ -1,5 +1,5 @@
-import { addToFavoritesHandler, removeFromFavorites } from "./storage.js";
-import { removeCardFromUI, addNote } from "./journalUI.js";
+import { addToFavoritesHandler, removeFromFavorites, addUserNote } from "./storage.js";
+import { removeCardFromUI, getNoteFromUser } from "./journalUI.js";
 
 export function CreateGlobalMovieCard(movie, withAddBtn) {
     let imgSource = ``;
@@ -68,10 +68,12 @@ export const createFavoriteMovieCard = (movie) => {
     const containerPersonalNote = document.createElement("div");
     containerPersonalNote.className = "note-section mt-4 w-full"; // Ensure it spans full width
     const noteTitle = document.createElement("h4");
-    noteTitle.textContent = "Your Note:";
+    const defaultNote = movie.userNote.trim() ? movie.userNote.trim() : "";
+    noteTitle.textContent = "Your note:";
     noteTitle.className = "text-sm font-bold text-gray-700";
     const noteContent = document.createElement("p");
     noteContent.className = "personal-note text-sm text-gray-600 mt-1";
+    noteContent.textContent = defaultNote;
     containerPersonalNote.appendChild(noteTitle);
     containerPersonalNote.appendChild(noteContent);
 
@@ -108,7 +110,7 @@ export const createFavoriteMovieCard = (movie) => {
 
     // Add Note Button
     const addNoteBtn = document.createElement("button");
-    addNoteBtn.textContent = "Add Note";
+    addNoteBtn.textContent = "Add/Edit Note";
     addNoteBtn.classList.add(
         "px-3",
         "py-1",
@@ -129,8 +131,11 @@ export const createFavoriteMovieCard = (movie) => {
     );
 
     addNoteBtn.addEventListener("click", () => {
-        const note = addNote();
-        noteContent.textContent = note || "No note added yet."; // Update note content dynamically
+        const note = getNoteFromUser(noteContent.innerText);
+        if (note) {
+            addUserNote(movie.id, note);
+            noteContent.innerText = note; // Update note content dynamically
+        }
     });
 
     // Append buttons to the container

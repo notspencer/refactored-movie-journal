@@ -4,7 +4,8 @@ export const removeCardFromUI = (cardId) => {
     card.remove(card);
 };
 
-function addNote(movieId) {
-    const note = prompt("Enter your personal note:", movie.note || "");
+export function getNoteFromUser(currentNote) {
+    console.log("current note", currentNote);
+    const note = prompt("Enter your personal note:", currentNote || "");
     return note;
 }
