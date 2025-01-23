@@ -63,7 +63,7 @@ export function CreateGlobalMovieCard(movie, withAddBtn) {
 }
 export const createFavoriteMovieCard = (movie) => {
     const card = CreateMovieCard(movie, movie.Image);
-
+    card.classList.add("border");
     // Personal Note Section
     const containerPersonalNote = document.createElement("div");
     containerPersonalNote.className = "note-section mt-4 w-full"; // Ensure it spans full width
