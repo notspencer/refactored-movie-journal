@@ -1,5 +1,5 @@
 import { addToFavoritesHandler, removeFromFavorites } from "./storage.js";
-import { removeCardFromUI } from "./journalUI.js";
+import { removeCardFromUI, addNote } from "./journalUI.js";
 
 export function CreateGlobalMovieCard(movie, withAddBtn) {
     let imgSource = ``;
@@ -63,19 +63,36 @@ export function CreateGlobalMovieCard(movie, withAddBtn) {
 }
 export const createFavoriteMovieCard = (movie) => {
     const card = CreateMovieCard(movie, movie.Image);
+
+    // Personal Note Section
+    const containerPersonalNote = document.createElement("div");
+    containerPersonalNote.className = "note-section mt-4 w-full"; // Ensure it spans full width
+    const noteTitle = document.createElement("h4");
+    noteTitle.textContent = "Your Note:";
+    noteTitle.className = "text-sm font-bold text-gray-700";
+    const noteContent = document.createElement("p");
+    noteContent.className = "personal-note text-sm text-gray-600 mt-1";
+    containerPersonalNote.appendChild(noteTitle);
+    containerPersonalNote.appendChild(noteContent);
+
+    // Creating container for buttons
+    const btnsContainer = document.createElement("div");
+    btnsContainer.className = "flex justify-between items-center mt-4 w-full space-x-4"; // Adds spacing between buttons
+
+    // Remove from Favorites Button
     const removeFromFavoritesBtn = document.createElement("button");
-    removeFromFavoritesBtn.textContent = "Remove from Favorites";
+    removeFromFavoritesBtn.textContent = "Remove Movie";
     removeFromFavoritesBtn.classList.add(
-        "px-6",
-        "py-3",
+        "px-3",
+        "py-1",
         "bg-gradient-to-r",
-        "from-purple-500",
-        "to-purple-700",
+        "from-red-500",
+        "to-red-700",
         "text-white",
         "font-semibold",
         "rounded-full",
-        "hover:from-purple-600",
-        "hover:to-purple-800",
+        "hover:from-red-600",
+        "hover:to-red-800",
         "shadow-md",
         "hover:shadow-lg",
         "transition-all",
@@ -88,9 +105,44 @@ export const createFavoriteMovieCard = (movie) => {
         removeFromFavorites(movie.id);
         removeCardFromUI(movie.id);
     });
-    card.appendChild(removeFromFavoritesBtn);
+
+    // Add Note Button
+    const addNoteBtn = document.createElement("button");
+    addNoteBtn.textContent = "Add Note";
+    addNoteBtn.classList.add(
+        "px-3",
+        "py-1",
+        "bg-gradient-to-r",
+        "from-green-500",
+        "to-blue-700",
+        "text-white",
+        "font-semibold",
+        "rounded-full",
+        "hover:from-green-600",
+        "hover:to-blue-800",
+        "shadow-md",
+        "hover:shadow-lg",
+        "transition-all",
+        "duration-300",
+        "transform",
+        "hover:scale-105"
+    );
+
+    addNoteBtn.addEventListener("click", () => {
+        const note = addNote();
+        noteContent.textContent = note || "No note added yet."; // Update note content dynamically
+    });
+
+    // Append buttons to the container
+    btnsContainer.appendChild(addNoteBtn);
+    btnsContainer.appendChild(removeFromFavoritesBtn);
+
+    // Add everything to the card
+    card.appendChild(containerPersonalNote); // Add the note section
+    card.appendChild(btnsContainer); // Add the buttons container
     return card;
 };
+
 const CreateMovieCard = (movie, imgSource) => {
     const card = document.createElement("div");
     card.setAttribute("id", movie.id);
