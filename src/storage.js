@@ -1,3 +1,4 @@
+// This page handles local storage for favorites and notes
 export function addToFavoritesHandler(movie) {
     const idOfFilm = movie.id;
     const nameOfFilm = movie.title;
