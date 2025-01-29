@@ -3,7 +3,7 @@ import { addToFavoritesHandler, removeFromFavorites, addUserNote } from "./stora
 import { removeCardFromUI, getNoteFromUser } from "./journalUI.js";
 
 // creates the global movie card, including: movie poster image, "add to favorites" button, and styling
-export function CreateGlobalMovieCard(movie, withAddBtn) {
+export const CreateGlobalMovieCard = (movie, withAddBtn) => {
     let imgSource = ``;
     let poster_path = movie.poster_path;
     if (poster_path === null) {
@@ -14,7 +14,11 @@ export function CreateGlobalMovieCard(movie, withAddBtn) {
 
     const card = CreateMovieCard(movie, imgSource);
     const addToFavoritesBtn = document.createElement("button");
-    if (withAddBtn) {
+
+    // Check if the movie is already in favorites
+    const isFavorite = isMovieInFavorites(movie.id);
+
+    if (withAddBtn && !isFavorite) {
         addToFavoritesBtn.textContent = "Add to Favorites";
         addToFavoritesBtn.classList.add(
             "px-6",
@@ -37,6 +41,8 @@ export function CreateGlobalMovieCard(movie, withAddBtn) {
 
         addToFavoritesBtn.addEventListener("click", () => {
             addToFavoritesHandler(movie);
+            addToFavoritesBtn.textContent = "Added to Favorites";
+            addToFavoritesBtn.disabled = true;
         });
     } else {
         addToFavoritesBtn.textContent = "Added to Favorites";
@@ -62,7 +68,7 @@ export function CreateGlobalMovieCard(movie, withAddBtn) {
     }
     card.appendChild(addToFavoritesBtn);
     return card;
-}
+};
 
 // creates favorite movie card, including: personal note, "remove from favorites" button, "add/edit note" button, and styling
 export const createFavoriteMovieCard = (movie) => {
@@ -152,6 +158,11 @@ export const createFavoriteMovieCard = (movie) => {
     return card;
 };
 
+// Helper function to check if a movie is in favorites
+const isMovieInFavorites = (movieId) => {
+    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    return favorites.some((favMovie) => favMovie.id === movieId);
+};
 
 // helper function to set the reusable movie card structure of filmImage, filmTitle, and returns the card
 const CreateMovieCard = (movie, imgSource) => {
