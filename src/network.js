@@ -1,10 +1,12 @@
+// imports API keys
 import { API_KEY, BEARER_TOKEN } from "../config.js";
 
+// defines API endpoints
 const popularMoviePath = "https://api.themoviedb.org/3/movie/popular";
 const searchPath = "https://api.themoviedb.org/3/search/movie";
 const pathKey = `?api_key=${API_KEY}`;
 
-//fetching PopularMovies
+// fetches PopularMovies
 export const fetchPopularMovies = async () => {
     try {
         const options = {
@@ -29,7 +31,8 @@ export const fetchPopularMovies = async () => {
     }
 };
 
-//fetching searchFilm
+// Fetches searchFilm: accepts a query parameter(movie title), encodes the query, sends a GET request to TMDB's search API, returns results after converting to JSON
+// This is called when a user searched for a movie
 export const searchFilm = async (query) => {
     try {
         const options = {

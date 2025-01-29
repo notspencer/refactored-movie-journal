@@ -1,6 +1,8 @@
+// imports dependencies
 import { addToFavoritesHandler, removeFromFavorites, addUserNote } from "./storage.js";
 import { removeCardFromUI, getNoteFromUser } from "./journalUI.js";
 
+// creates the global movie card, including: movie poster image, "add to favorites" button, and styling
 export function CreateGlobalMovieCard(movie, withAddBtn) {
     let imgSource = ``;
     let poster_path = movie.poster_path;
@@ -61,6 +63,8 @@ export function CreateGlobalMovieCard(movie, withAddBtn) {
     card.appendChild(addToFavoritesBtn);
     return card;
 }
+
+// creates favorite movie card, including: personal note, "remove from favorites" button, "add/edit note" button, and styling
 export const createFavoriteMovieCard = (movie) => {
     const card = CreateMovieCard(movie, movie.Image);
     card.classList.add("border");
@@ -148,6 +152,8 @@ export const createFavoriteMovieCard = (movie) => {
     return card;
 };
 
+
+// helper function to set the reusable movie card structure of filmImage, filmTitle, and returns the card
 const CreateMovieCard = (movie, imgSource) => {
     const card = document.createElement("div");
     card.setAttribute("id", movie.id);
