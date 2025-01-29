@@ -3,7 +3,7 @@ import { addToFavoritesHandler, removeFromFavorites, addUserNote } from "./stora
 import { removeCardFromUI, getNoteFromUser } from "./journalUI.js";
 
 // creates the global movie card, including: movie poster image, "add to favorites" button, and styling
-export const CreateGlobalMovieCard = (movie, withAddBtn) => {
+export const createGlobalMovieCard = (movie, withAddBtn) => {
     let imgSource = ``;
     let poster_path = movie.poster_path;
     if (poster_path === null) {
