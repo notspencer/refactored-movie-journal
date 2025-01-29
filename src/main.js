@@ -30,7 +30,7 @@ export const searchMovie = async (title) => {
     try {
         const movies = await searchFilm(title);
         const results = movies.results;
-        resetCardContainer(`Searchresult for "${title}"`);
+        resetCardContainer(`Search result for "${title}"`);
         results.map((movie) => populateUI(movie));
     } catch (e) {
         console.log(`${e} Error searching movie`);
